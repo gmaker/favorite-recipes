@@ -1,0 +1,16 @@
+{
+    auto_https off
+}
+:80 {
+	@backend {
+        path /api/* /uploads/*       
+    }
+	handle @backend {
+        reverse_proxy backend-api:8081
+    }
+	
+    handle {
+        root * /usr/share/caddy
+        file_server
+    }
+}

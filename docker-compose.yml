@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  caddy:
+    build:
+      context: .
+      dockerfile: caddy/Dockerfile
+    container_name: caddy-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    extra_hosts:
+      - "myproject.com:host-gateway"
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    environment:
+      - POSTGRES_PASSWORD=qwerty
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=bookdb
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  backend-api:
+    build:
+      context: ./backend-api
+      dockerfile: Dockerfile
+    container_name: backend-api
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/bookdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=qwerty
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
