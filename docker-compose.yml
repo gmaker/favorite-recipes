@@ -27,6 +27,8 @@ services:
       - app-network
 
   backend-api:
+    depends_on:
+      - postgres
     build:
       context: ./backend-api
       dockerfile: Dockerfile
