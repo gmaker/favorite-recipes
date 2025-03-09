@@ -53,6 +53,7 @@ async function loadPosts() {
       params: {
         limit: perPage,
         page: page.value,
+        sort: 'id,desc',
       },
     });
     hasMore.value = response.data.length >= perPage;

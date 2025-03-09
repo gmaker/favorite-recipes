@@ -1,7 +1,6 @@
 package art.gmaker.backend_api_recipes.controller;
 
 import art.gmaker.backend_api_recipes.dto.PostDTO;
-import art.gmaker.backend_api_recipes.mapper.PostMapper;
 import art.gmaker.backend_api_recipes.service.MediaService;
 import art.gmaker.backend_api_recipes.service.PostService;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +15,7 @@ public class PostController {
 
     private final PostService postService;
     private final MediaService mediaService;
+
 
     public PostController(PostService postService, MediaService mediaService) {
         this.postService = postService;

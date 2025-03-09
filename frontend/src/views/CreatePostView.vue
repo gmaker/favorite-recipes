@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <h1>Создание поста</h1>
-    <label for="post-title" class="form-label">
-      Заголовок поста
-      <input id="post-title" type="text" v-model="title" placeholder="Заголовок поста"/>
-    </label>
-    <div ref="editorContainer"></div>
-    <button @click="savePost">Сохранить пост</button>
-  </div>
+  <form @submit.prevent="handleSubmit">
+    <div>
+      <h1>Создание поста</h1>
+      <label for="post-title" class="form-label">
+        Заголовок поста
+        <input id="post-title" type="text" v-model="title" placeholder="Заголовок поста" required/>
+      </label>
+      <div ref="editorContainer"></div>
+      <button type="submit">Сохранить пост</button>
+    </div>
+  </form>
 </template>
 
 <script setup>
@@ -72,11 +74,19 @@ const savePost = async () => {
     const postId = response.data.id;
     alert('Пост успешно создан!');
     router.push({
-      name: 'postDetails',
+      name: 'post',
       params: { id: postId },
     });
   } catch (error) {
     console.error('Ошибка сохранения поста:', error);
   }
+};
+
+const handleSubmit = async (event) => {
+  if (!event.target.checkValidity()) {
+    event.target.reportValidity();
+    return;
+  }
+  await savePost();
 };
 </script>

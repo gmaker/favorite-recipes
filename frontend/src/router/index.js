@@ -8,6 +8,7 @@ const ProfileView = () => import('../views/ProfileView.vue');
 const NotFound = () => import('../views/NotFound.vue');
 const PostsView = () => import('../views/PostsView.vue');
 const PostDetailsView = () => import('../views/PostDetailsView.vue');
+const PostView = () => import('../views/PostView.vue');
 const PostListView = () => import('../views/PostListView.vue');
 const CreatePostView = () => import('../views/CreatePostView.vue');
 
@@ -46,6 +47,11 @@ const routes = [
     path: '/mlist',
     name: 'mediaList',
     component: MediaListView,
+  },
+  {
+    path: '/post/:id',
+    name: 'post',
+    component: PostView,
   },
   {
     path: '/post-list',
