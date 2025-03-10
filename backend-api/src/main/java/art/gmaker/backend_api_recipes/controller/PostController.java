@@ -7,7 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -30,8 +32,17 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostDTO> getAllPosts(Pageable pageable) {
-        return postService.findAll(pageable);
+    public List<PostDTO> getAllPosts(Pageable pageable,
+                                     @RequestParam(name = "cooked", required = false) Boolean cooked,
+                                     @RequestParam(name = "tags", required = false) String tags) {
+        List<String> tagList = null;
+        if (tags != null && !tags.isBlank()) {
+            tagList = Arrays.stream(tags.split(","))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .collect(Collectors.toList());
+        }
+        return postService.findAll(pageable, cooked, tagList);
     }
 
     @PostMapping

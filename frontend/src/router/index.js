@@ -1,72 +1,43 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import MediaListView from '@/views/MediaListView.vue';
 
-const HomeView = () => import('../views/HomeView.vue');
+import MainLayout from '@/layouts/MainLayout.vue';
+
 const AboutView = () => import('../views/AboutView.vue');
-const LoginView = () => import('../views/LoginView.vue');
-const ProfileView = () => import('../views/ProfileView.vue');
-const NotFound = () => import('../views/NotFound.vue');
-const PostsView = () => import('../views/PostsView.vue');
-const PostDetailsView = () => import('../views/PostDetailsView.vue');
-const PostView = () => import('../views/PostView.vue');
+const NotFoundView = () => import('../views/NotFoundView.vue');
 const PostListView = () => import('../views/PostListView.vue');
-const CreatePostView = () => import('../views/CreatePostView.vue');
+const CreateNewPostView = () => import('../views/CreateNewPostView.vue');
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView,
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: AboutView,
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: LoginView,
-  },
-  {
-    path: '/profile',
-    name: 'profile',
-    component: ProfileView,
-  },
-  {
-    path: '/posts',
-    name: 'posts',
-    component: PostsView,
-  },
-  {
-    path: '/posts/:id',
-    name: 'postDetails',
-    component: PostDetailsView,
-  },
-  {
-    path: '/mlist',
-    name: 'mediaList',
-    component: MediaListView,
-  },
-  {
-    path: '/post/:id',
-    name: 'post',
-    component: PostView,
-  },
-  {
-    path: '/post-list',
-    name: 'postList',
-    component: PostListView,
-  },
-  {
-    path: '/create-post',
-    name: 'createPost',
-    component: CreatePostView,
-  },
-  {
-    path: '/:pathMatch(.*)*',
-    name: 'notFound',
-    component: NotFound,
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        name: 'PostList',
+        component: PostListView,
+      },
+      {
+        path: 'create-new-post',
+        name: 'CreateNewPost',
+        component: CreateNewPostView,
+      },
+      {
+        path: 'about',
+        name: 'About',
+        component: AboutView,
+      },
+      {
+        path: '/posts/:id',
+        name: 'Post',
+        component: AboutView,
+      },
+      {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: NotFoundView,
+      },
+    ],
   },
 ];
 

@@ -47,7 +47,7 @@ function convertMarkdown(markdownText) {
 }
 </script>
 
-<script> export default { name: 'PostDetailsView' }; </script>
+<script> export default { name: 'PostView' }; </script>
 
 <style scoped>
 /* Дополнительные стили при необходимости */

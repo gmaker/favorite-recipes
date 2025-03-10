@@ -90,3 +90,5 @@ const handleSubmit = async (event) => {
   await savePost();
 };
 </script>
+
+<script> export default { name: 'CreateNewPostView' }; </script>

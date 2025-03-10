@@ -46,6 +46,7 @@ public class PostServiceImpl implements PostService {
         return postRepository.findById(id).map(existing -> {
             existing.setTitle(postDTO.getTitle());
             existing.setBody(postDTO.getBody());
+            // Можно обновить и другие поля, если требуется
             Post updated = postRepository.save(existing);
             return postMapper.toPostDTO(updated);
         });
@@ -76,6 +77,15 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostDTO> findAll(Pageable pageable) {
         return postRepository.findAll(pageable).stream()
+                .map(postMapper::toPostDTO)
+                .collect(Collectors.toList());
+    }
+
+    // Новый метод для фильтрации по cooked и тегам
+    @Override
+    public List<PostDTO> findAll(Pageable pageable, Boolean cooked, List<String> tags) {
+        return postRepository.findByFilters(cooked, tags, pageable)
+                .stream()
                 .map(postMapper::toPostDTO)
                 .collect(Collectors.toList());
     }

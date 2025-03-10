@@ -22,4 +22,6 @@ public interface PostService {
     List<PostDTO> multiLanguageFullTextSearch(String query);
 
     List<PostDTO> findAll(Pageable pageable);
+
+    List<PostDTO> findAll(Pageable pageable, Boolean cooked, List<String> tags);
 }

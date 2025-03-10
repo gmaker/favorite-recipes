@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Data
 public class PostDTO {
-    private long id;
+    private Long id;
     private String url;
     private String title;
     private String coverImageUrl;
@@ -15,7 +15,6 @@ public class PostDTO {
     private int cookedCount;
     private Set<TagDTO> tags;
     private String body;
-    private String parsedData;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

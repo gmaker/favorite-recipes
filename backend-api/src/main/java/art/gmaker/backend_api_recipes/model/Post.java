@@ -55,10 +55,6 @@ public class Post {
     @JdbcTypeCode(Types.LONGVARCHAR)
     private String body;
 
-    @Lob
-    @Column(name = "parsed_data", columnDefinition = "jsonb")
-    private String parsedData;
-
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

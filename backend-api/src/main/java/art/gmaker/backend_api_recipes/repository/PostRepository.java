@@ -1,6 +1,8 @@
 package art.gmaker.backend_api_recipes.repository;
 
 import art.gmaker.backend_api_recipes.model.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -30,4 +32,15 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "@@ plainto_tsquery('english', :query)",
             nativeQuery = true)
     List<Post> multiLanguageFullTextSearch(@Param("query") String query);
+
+
+    @Query("SELECT DISTINCT p FROM Post p " +
+            "LEFT JOIN p.tags t " +
+            "WHERE (:cooked IS NULL OR " +
+            "       (:cooked = TRUE AND p.cookedCount > 0) OR " +
+            "       (:cooked = FALSE AND p.cookedCount = 0)) " +
+            "AND (:tags IS NULL OR t.name IN :tags)")
+    Page<Post> findByFilters(@Param("cooked") Boolean cooked,
+                             @Param("tags") List<String> tags,
+                             Pageable pageable);
 }
